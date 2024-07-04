@@ -1,6 +1,6 @@
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce;  
 
 import java.io.IOException;
 
@@ -16,8 +16,10 @@ public class UsageMapper extends Mapper<LongWritable, Text, Text, LongWritable> 
         if (fields.length > 0) {
             String date = fields[0];
             String yearStr = date.substring(0, 4);
-            year.set(yearStr);
-            context.write(year, one);
+            if (yearStr.matches("\\d{4}")) { // Check if yearStr is a four-digit number
+                year.set(yearStr);
+                context.write(year, one);
+            }
         }
     }
 }
